@@ -1,0 +1,19 @@
+## .NET
+bin/
+obj/
+.vs/
+*.user
+
+## IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+## Local data and secrets
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.*
+!.env.example
