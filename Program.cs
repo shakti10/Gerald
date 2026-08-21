@@ -1,3 +1,5 @@
+using Gerald.Application.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add DbContext
@@ -6,7 +8,9 @@ builder.Services.AddDbContext<GeraldDbContext>(options =>
 
 // Register repositories and services
 builder.Services.AddScoped<VendorRepository>();
-builder.Services.AddScoped<AuditRiskAssessmentService>();
+builder.Services.AddScoped<IAuditRiskAssessmentService, AuditRiskAssessmentService>();
+builder.Services.AddScoped<ILanguageModelClient, StubLanguageModelClient>();
+builder.Services.AddScoped<IEmbeddingClient, StubEmbeddingClient>();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();

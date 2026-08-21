@@ -1,3 +1,5 @@
+using Gerald.Application.Interfaces;
+
 namespace Gerald.Presentation.Controllers
 {
     [Route("api/[controller]")]
@@ -5,9 +7,9 @@ namespace Gerald.Presentation.Controllers
     public class VendorsController : ControllerBase
     {
         private readonly VendorRepository _vendorRepository;
-        private readonly AuditRiskAssessmentService _riskService;
+        private readonly IAuditRiskAssessmentService _riskService;
 
-        public VendorsController(VendorRepository vendorRepository, AuditRiskAssessmentService riskService)
+        public VendorsController(VendorRepository vendorRepository, IAuditRiskAssessmentService riskService)
         {
             _vendorRepository = vendorRepository;
             _riskService = riskService;

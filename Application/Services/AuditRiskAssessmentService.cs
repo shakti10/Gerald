@@ -1,8 +1,17 @@
 
+using Gerald.Application.Interfaces;
+
 namespace Gerald.Application.Services
 {
-    public class AuditRiskAssessmentService
+    public class AuditRiskAssessmentService : IAuditRiskAssessmentService
     {
+        private readonly ILanguageModelClient _languageModelClient;
+
+        public AuditRiskAssessmentService(ILanguageModelClient languageModelClient)
+        {
+            _languageModelClient = languageModelClient;
+        }
+
         public RiskAssessmentDto AssessVendorRisk(Vendor vendor)
         {
             if (vendor?.Findings == null || vendor.Findings.Count == 0)
@@ -32,9 +41,7 @@ namespace Gerald.Application.Services
                 .Select(f => $"{f.Severity}: {f.Notes}")
                 .ToList();
 
-            var summary = $"Vendor {vendor.Name} has {vendor.Findings.Count} total findings: " +
-                         $"{highSeverityCount} High, {mediumSeverityCount} Medium, {lowSeverityCount} Low. " +
-                         $"{openCount} findings remain open.";
+            var summary = _languageModelClient.CreateSummary(vendor.Name, vendor.Findings);
 
             var reasoning = GenerateReasoning(highSeverityCount, mediumSeverityCount, openCount);
 
