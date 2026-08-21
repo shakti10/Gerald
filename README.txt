@@ -23,12 +23,26 @@ dotnet restore
 ```
 
 ### 2. Run
+Start the API from the repository root:
+
 ```powershell
 dotnet run
 ```
-API runs on `http://localhost:5085` | Swagger UI: `http://localhost:5085/swagger`
 
-### 3. Database
+The API runs on `http://localhost:5299` | Swagger UI: `http://localhost:5299/swagger`
+
+### 3. Run the Angular UI
+Open a second terminal in the `frontend` folder:
+
+```powershell
+cd frontend
+npm install
+npm start
+```
+
+Open `http://localhost:4200`. The Angular development proxy forwards `/api` requests to the API on port `5299`.
+
+### 4. Database
 - SQLite database (`audit.db`) is auto-created on first run
 - Sample data (5 vendors + 12 findings) is auto-seeded
 
@@ -41,9 +55,7 @@ API runs on `http://localhost:5085` | Swagger UI: `http://localhost:5085/swagger
 
 ### Example: Get Risk Assessment
 ```powershell
-$response = Invoke-RestMethod -Uri "http://localhost:5085/api/vendors/1/risk-assessment" -Method Post
-$response | ConvertTo-Json
-```
+$response = Invoke-RestMethod -Uri "http://localhost:5299/api/vendors/1/risk-assessment" -Method Post
 
 Response:
 ```json
